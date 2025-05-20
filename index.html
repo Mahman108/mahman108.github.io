@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mahman108's Digital Portfolio</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #fffdd0; /* cream white */
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #007BFF; /* blue */
+      text-align: center;
+    }
+
+    h2, h3 {
+      color: #2ecc71; /* green */
+    }
+
+    .button {
+      display: block;
+      margin: 10px auto;
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    .green-btn {
+      background-color: limegreen;
+      color: white;
+    }
+
+    .red-btn {
+      background-color: crimson;
+      color: white;
+    }
+
+    .section {
+      display: none;
+      opacity: 0;
+      animation-duration: 1.5s;
+    }
+
+    .visible {
+      display: block;
+      animation: smokeIn 1.5s forwards;
+    }
+
+    .hidden {
+      animation: smokeOut 1.5s forwards;
+    }
+
+    @keyframes smokeIn {
+      0% {
+        opacity: 0;
+        filter: blur(30px);
+        transform: scale(1.2) translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes smokeOut {
+      0% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        filter: blur(30px);
+        transform: scale(0.8) translateY(-50px);
+      }
+    }
+
+    .profile-pic {
+      width: 180px;
+      border-radius: 50%;
+      display: block;
+      margin: 20px auto;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Mahman108's World</h1>
+
+  <!-- START MENU -->
+  <div id="menu" class="section visible center">
+    <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" class="profile-pic">
+    <button class="button green-btn" onclick="showSection('portfolio')">Open Portfolio</button>
+    <button class="button green-btn" onclick="showSection('contact')">Contact Me</button>
+  </div>
+
+  <!-- PORTFOLIO SECTION -->
+  <div id="portfolio" class="section">
+    <h2>My Portfolio</h2>
+    <p>Hello! I'm Mahman108. I'm a creative and tech-savvy person who enjoys voice dubbing, story writing, and exploring YouTube content.</p>
+
+    <h3>Hobbies</h3>
+    <ul>
+      <li>Voice Dubbing</li>
+      <li>Story Writing</li>
+      <li>Watching YouTube</li>
+    </ul>
+
+    <h3>Skills</h3>
+    <ul>
+      <li>Voice Dubbing / Acting / Mimicry</li>
+      <li>Story & Blog Writing</li>
+      <li>YouTube/Instagram Captions, Titles, Descriptions</li>
+      <li>Product Description Writing</li>
+      <li>Digital Image to Anime Background Replication</li>
+    </ul>
+
+    <div class="center">
+      <button class="button red-btn" onclick="goBack()">Go Back</button>
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <div id="contact" class="section center">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:mahmanuhas@gmail.com">mahmanuhas@gmail.com</a></p>
+    <p>GitHub: <a href="https://github.com/mahman108" target="_blank">github.com/mahman108</a></p>
+    <p>Discord: hrudaya12.</p>
+    <button class="button red-btn" onclick="goBack()">Go Back</button>
+  </div>
+
+  <!-- JavaScript for Transitions -->
+  <script>
+    let current = "menu";
+
+    function showSection(sectionId) {
+      const currentDiv = document.getElementById(current);
+      currentDiv.classList.remove("visible");
+      currentDiv.classList.add("hidden");
+
+      setTimeout(() => {
+        currentDiv.style.display = "none";
+        currentDiv.classList.remove("hidden");
+
+        const nextDiv = document.getElementById(sectionId);
+        nextDiv.style.display = "block";
+        nextDiv.classList.add("visible");
+        current = sectionId;
+      }, 1500);
+    }
+
+    function goBack() {
+      showSection("menu");
+    }
+  </script>
+
+</body>
+</html>
