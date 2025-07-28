@@ -1,190 +1,210 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mahman108's Digital Portfolio</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 20px;
-      background-color: #fffdd0; /* cream white */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f4f8;
+      background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+      background-size: 40px 40px;
+      background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
       color: #333;
       overflow-x: hidden;
-    }
+      perspective: 1000px;
+    }.banner {
+  width: 100%;
+  height: 300px;
+  background-image: url('A_grayscale_digital_illustration_displays_tools_an.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-    h1 {
-      color: #007BFF; /* blue */
-      text-align: center;
-    }
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
 
-    h2, h3 {
-      color: #2ecc71; /* green */
-    }
+.tab-button {
+  margin: 10px;
+  padding: 15px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
+  box-shadow: 5px 5px 15px #a1c4fd, -5px -5px 15px #c2e9fb;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
-    .button {
-      display: block;
-      margin: 10px auto;
-      padding: 15px 25px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+.tab-button:hover {
+  transform: scale(1.05);
+}
 
-    .button:hover {
-      transform: scale(1.05);
-    }
+.section {
+  display: none;
+  animation: fadeIn 1s ease-in-out forwards;
+}
 
-    .green-btn {
-      background-color: limegreen;
-      color: white;
-    }
+.visible {
+  display: block;
+}
 
-    .red-btn {
-      background-color: crimson;
-      color: white;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) rotateX(20deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
 
-    .section {
-      display: none;
-      opacity: 0;
-      animation-duration: 1.5s;
-    }
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
 
-    .visible {
-      display: block;
-      animation: smokeIn 1.5s forwards;
-    }
+.card {
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
 
-    .hidden {
-      animation: smokeOut 1.5s forwards;
-    }
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s ease;
+  z-index: 0;
+}
 
-    @keyframes smokeIn {
-      0% {
-        opacity: 0;
-        filter: blur(30px);
-        transform: scale(1.2) translateY(50px);
-      }
-      100% {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1) translateY(0);
-      }
-    }
+.card:hover::before {
+  transform: scaleY(1);
+}
 
-    @keyframes smokeOut {
-      0% {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1) translateY(0);
-      }
-      100% {
-        opacity: 0;
-        filter: blur(30px);
-        transform: scale(0.8) translateY(-50px);
-      }
-    }
+.card-content {
+  position: relative;
+  z-index: 1;
+}
 
-    .profile-pic {
-      width: 180px;
-      border-radius: 50%;
-      display: block;
-      margin: 20px auto;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
+.card h3::before {
+  content: attr(data-icon);
+  display: block;
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
 
-    .center {
-      text-align: center;
-    }
+.card.open {
+  transform: rotateY(10deg) scale(1.05);
+}
 
-    ul {
-      padding-left: 20px;
-      text-align: left;
-      max-width: 600px;
-      margin: auto;
-    }
+.card-details {
+  margin-top: 10px;
+  display: none;
+  font-size: 0.9em;
+}
+
+.card.open .card-details {
+  display: block;
+}
+
+.center {
+  text-align: center;
+}
+
   </style>
 </head>
 <body>
-
-  <h1>Welcome to Mahman108's World</h1>
-
-  <!-- START MENU -->
-  <div id="menu" class="section visible center">
-    <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" class="profile-pic">
-    <button class="button green-btn" onclick="showSection('portfolio')">Open Portfolio</button>
-    <button class="button green-btn" onclick="showSection('contact')">Contact Me</button>
-
-    <!-- Updated GIF at the bottom -->
-    <img src="https://i.ibb.co/pvFTSgRJ/Portfolio.gif" alt="Portfolio GIF" style="display:block; margin:20px auto; width:200px;">
-  </div>
-
-  <!-- PORTFOLIO SECTION -->
-  <div id="portfolio" class="section">
-    <h2>My Portfolio</h2>
-    <p>Hello! I'm Mahman108. I'm a creative and tech-savvy person who enjoys voice dubbing, story writing, and exploring YouTube content.</p>
-
-    <h3>Hobbies</h3>
-    <ul>
-      <li>Voice Dubbing</li>
-      <li>Story Writing</li>
-      <li>Watching Anime</li>
-    </ul>
-
-    <h3>Skills</h3>
-    <ul>
-      <li>Voice Dubbing / Acting / Mimicry</li>
-      <li>Story & Blog Writing</li>
-      <li>YouTube/Instagram Captions, Titles, Descriptions</li>
-      <li>Product Description Writing</li>
-      <li>Digital Image to Anime Background Replication</li>
-      <li>Data Entry</li>
-      <li>Logo designer(begginer)</li>
-    </ul>
-
+  <div class="banner"></div>
+  <h1>Mahman108's 3D Portfolio</h1>
+  <div class="center">
+    <button class="tab-button" onclick="showSection('menu')">Home</button>
+    <button class="tab-button" onclick="showSection('portfolio')">Portfolio</button>
+    <button class="tab-button" onclick="showSection('contact')">Contact</button>
+  </div>  <div id="menu" class="section visible">
     <div class="center">
-      <button class="button red-btn" onclick="goBack()">Go Back</button>
+      <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" style="width: 150px; border-radius: 50%; margin-top: 20px;">
+      <p>Welcome to my digital portfolio. Explore my work and skills below!</p>
     </div>
-  </div>
-
-  <!-- CONTACT SECTION -->
-  <div id="contact" class="section center">
-    <h2>Contact Me</h2>
-    <p>Email: <a href="mailto:mahmanuhas@gmail.com">mahmanuhas@gmail.com</a></p>
-    <p>GitHub: "mahman108"
-    <p>Discord:hrudaya12.</p>
-    <button class="button red-btn" onclick="goBack()">Go Back</button>
-  </div>
-
-  <!-- JavaScript for Transitions -->
-  <script>
+  </div>  <div id="portfolio" class="section">
+    <h2 class="center">Skills Showcase</h2>
+    <div class="card-container">
+      <div class="card" onclick="toggleDetails(this)">
+        <div class="card-content">
+          <h3 data-icon="🎙️">Voice Modulation</h3>
+          <div class="card-details">Expert in mimicry, dubbing, and character voice creation.</div>
+        </div>
+      </div>
+      <div class="card" onclick="toggleDetails(this)">
+        <div class="card-content">
+          <h3 data-icon="✍️">Creative Writing</h3>
+          <div class="card-details">Writes short stories, web series scripts, and creative blogs.</div>
+        </div>
+      </div>
+      <div class="card" onclick="toggleDetails(this)">
+        <div class="card-content">
+          <h3 data-icon="🎨">Stylized Art</h3>
+          <div class="card-details">Turns real photos into anime-style digital art backgrounds.</div>
+        </div>
+      </div>
+      <div class="card" onclick="toggleDetails(this)">
+        <div class="card-content">
+          <h3 data-icon="📣">Content Strategy</h3>
+          <div class="card-details">Crafts engaging titles, captions, and descriptions for Instagram and YouTube.</div>
+        </div>
+      </div>
+      <div class="card" onclick="toggleDetails(this)">
+        <div class="card-content">
+          <h3 data-icon="🧠">Prompt Engineering</h3>
+          <div class="card-details">Writes customized, professional prompts tailored to your needs and vision.</div>
+        </div>
+      </div>
+    </div>
+  </div>  <div id="contact" class="section">
+    <h2 class="center">Contact Me</h2>
+    <div class="center card" style="display: inline-block; max-width: 400px;">
+      <div class="card-content">
+        <p>Email: <a href="mailto:mahmanuhas@gmail.com">mahmanuhas@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/mahman108" target="_blank">github.com/mahman108</a></p>
+        <p>Discord: <code>hrudaya12.</code></p>
+      </div>
+    </div>
+  </div>  <script>
     let current = "menu";
 
     function showSection(sectionId) {
-      const currentDiv = document.getElementById(current);
-      currentDiv.classList.remove("visible");
-      currentDiv.classList.add("hidden");
-
-      setTimeout(() => {
-        currentDiv.style.display = "none";
-        currentDiv.classList.remove("hidden");
-
-        const nextDiv = document.getElementById(sectionId);
-        nextDiv.style.display = "block";
-        nextDiv.classList.add("visible");
-        current = sectionId;
-      }, 1500);
+      document.getElementById(current).classList.remove("visible");
+      current = sectionId;
+      document.getElementById(current).classList.add("visible");
     }
 
-    function goBack() {
-      showSection("menu");
+    function toggleDetails(card) {
+      card.classList.toggle("open");
     }
-  </script>
-
-</body>
+  </script></body>
 </html>
