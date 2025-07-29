@@ -1,303 +1,279 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mahman108's Digital Portfolio</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f2f4f8;
-      background-image: linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
-                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
-                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
-                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
-      background-size: 40px 40px;
-      background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
-      color: #333;
-      overflow-x: hidden;
-      perspective: 1000px;
-    }.banner {
-  width: 100%;
-  height: 300px;
-  background-image: url('A_grayscale_digital_illustration_displays_tools_an.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-h1 {
-  text-align: center;
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
-
-.tab-button {
-  margin: 10px;
-  padding: 15px 25px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 15px;
-  background: linear-gradient(145deg, #a1c4fd, #c2e9fb);
-  box-shadow: 5px 5px 15px #a1c4fd, -5px -5px 15px #c2e9fb;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-
-.tab-button:hover {
-  transform: scale(1.05);
-}
-
-.section {
-  display: none;
-  animation: fadeIn 1s ease-in-out forwards;
-}
-
-.visible {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px) rotateX(20deg);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotateX(0);
-  }
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 30px;
-}
-
-.card {
-  background: #ffffffcc;
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-  transform: rotateX(2deg) rotateY(2deg);
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.4s ease;
-  z-index: 0;
-}
-
-.card:hover::before {
-  transform: scaleY(1);
-}
-
-.card-content {
-  position: relative;
-  z-index: 1;
-}
-
-.card h3::before {
-  content: attr(data-icon);
-  display: block;
-  font-size: 1.5em;
-  margin-bottom: 5px;
-}
-
-.card.open {
-  transform: rotateY(10deg) scale(1.05);
-}
-
-.card-details {
-  margin-top: 10px;
-  display: none;
-  font-size: 0.9em;
-}
-
-.card.open .card-details {
-  display: block;
-}
-
-.center {
-  text-align: center;
-}
-
-.comment-box {
-  margin: 20px auto;
-  max-width: 600px;
-  text-align: left;
-}
-.comment-box input,
-.comment-box textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-.comment {
-  background: #fff;
-  padding: 10px 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.like-btn {
-  cursor: pointer;
-  color: crimson;
-  font-size: 1.2em;
-  margin-left: 10px;
-}
-
-.comment-header {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-  </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahman108's Digital Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="banner"></div>
-  <h1>Mahman108's 3D Portfolio</h1>
-  <div class="center">
-    <button class="tab-button" onclick="showSection('menu')">Home</button>
-    <button class="tab-button" onclick="showSection('portfolio')">Portfolio</button>
-    <button class="tab-button" onclick="showSection('contact')">Contact</button>
-    <button class="tab-button" onclick="showSection('comments')">Messages & Ratings</button>
-  </div>  <div id="menu" class="section visible">
-    <div class="center">
-      <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" style="width: 150px; border-radius: 50%; margin-top: 20px;">
-      <p>Welcome to my digital portfolio. Explore my work and skills below!</p>
+    <!-- Animated background particles -->
+    <div class="particles-container" id="particles"></div>
+    
+    <!-- Hero banner section -->
+    <div class="banner">
+        <div class="banner-overlay">
+            <div class="banner-content">
+                <h1 class="main-title">Mahman108's Portfolio</h1>
+                <p class="subtitle">Digital Creative & Technical Specialist</p>
+            </div>
+        </div>
     </div>
-  </div>  <div id="portfolio" class="section">
-    <h2 class="center">Skills Showcase</h2>
-    <div class="card-container">
-      <div class="card" onclick="toggleDetails(this)">
-        <div class="card-content">
-          <h3 data-icon="🎙️">Voice Modulation</h3>
-          <div class="card-details">I can perform voiceovers from low to high pitch, mimic wild animals, ghosts, and fictional characters.</div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <button class="nav-button active" onclick="showSection('menu')" data-section="menu">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-button" onclick="showSection('portfolio')" data-section="portfolio">
+            <i class="fas fa-briefcase"></i>
+            <span>Portfolio</span>
+        </button>
+        <button class="nav-button" onclick="showSection('contact')" data-section="contact">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </button>
+        <button class="nav-button" onclick="showSection('comments')" data-section="comments">
+            <i class="fas fa-comments"></i>
+            <span>Messages</span>
+        </button>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="menu" class="content-section visible">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-image-container">
+                    <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" class="profile-image">
+                    <div class="profile-glow"></div>
+                </div>
+                <div class="profile-info">
+                    <h2>Welcome to My Digital Realm</h2>
+                    <p class="profile-description">
+                        I'm a multifaceted digital creative specializing in voice modulation, 
+                        creative writing, stylized art, content strategy, and AI prompt engineering. 
+                        Explore my portfolio to discover the intersection of creativity and technology.
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Core Skills</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Creativity</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Availability</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="card" onclick="toggleDetails(this)">
-        <div class="card-content">
-          <h3 data-icon="📝">Creative Writing</h3>
-          <div class="card-details">I write blogs, custom stories and can improvise any narrative based on your idea or mood.</div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Skills Showcase</h2>
+            <div class="skills-grid">
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="voice">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <h3>Voice Modulation</h3>
+                            <p class="skill-brief">Professional voiceover expertise</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Voice Modulation</h3>
+                            <p>I can perform voiceovers from low to high pitch, mimic wild animals, ghosts, and fictional characters. Perfect for audiobooks, games, and multimedia projects.</p>
+                            <div class="skill-tags">
+                                <span class="tag">Voiceover</span>
+                                <span class="tag">Character Voices</span>
+                                <span class="tag">Audio Production</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="writing">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h3>Creative Writing</h3>
+                            <p class="skill-brief">Storytelling and content creation</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Creative Writing</h3>
+                            <p>I write blogs, custom stories and can improvise any narrative based on your idea or mood. From technical documentation to creative fiction.</p>
+                            <div class="skill-tags">
+                                <span class="tag">Blogs</span>
+                                <span class="tag">Storytelling</span>
+                                <span class="tag">Content Strategy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="art">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Stylized Art</h3>
+                            <p class="skill-brief">Digital art and design</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Stylized Art</h3>
+                            <p>I convert photos into semi-realistic anime-style artwork and design environments creatively. Specialized in digital illustration and concept art.</p>
+                            <div class="skill-tags">
+                                <span class="tag">Digital Art</span>
+                                <span class="tag">Anime Style</span>
+                                <span class="tag">Environment Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="strategy">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3>Content Strategy</h3>
+                            <p class="skill-brief">Marketing and social media</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Content Strategy</h3>
+                            <p>Expertise in crafting catchy captions, detailed product descriptions, and YouTube titles. Data-driven approach to content optimization.</p>
+                            <div class="skill-tags">
+                                <span class="tag">Social Media</span>
+                                <span class="tag">SEO Writing</span>
+                                <span class="tag">Marketing Copy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="ai">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>Prompt Engineering</h3>
+                            <p class="skill-brief">AI optimization specialist</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Prompt Engineering</h3>
+                            <p>Specialized in writing AI prompts tailored to creative, technical, and strategic applications. Maximizing AI output quality and relevance.</p>
+                            <div class="skill-tags">
+                                <span class="tag">AI Prompts</span>
+                                <span class="tag">Optimization</span>
+                                <span class="tag">Technical Writing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="card" onclick="toggleDetails(this)">
-        <div class="card-content">
-          <h3 data-icon="🎨">Stylized Art</h3>
-          <div class="card-details">I convert photos into semi-realistic anime-style artwork and design environments creatively.</div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>Let's Connect</h3>
+                        <p>Ready to bring your ideas to life? Reach out through any of these channels.</p>
+                    </div>
+                    
+                    <div class="contact-methods">
+                        <a href="mailto:mahmanuhas@gmail.com" class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-info">
+                                <span class="method-label">Email</span>
+                                <span class="method-value">mahmanuhas@gmail.com</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com/mahman108" target="_blank" class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="method-info">
+                                <span class="method-label">GitHub</span>
+                                <span class="method-value">github.com/mahman108</span>
+                            </div>
+                        </a>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <div class="method-info">
+                                <span class="method-label">Discord</span>
+                                <span class="method-value">hrudaya12.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="card" onclick="toggleDetails(this)">
-        <div class="card-content">
-          <h3 data-icon="📣">Content Strategy</h3>
-          <div class="card-details">Expertise in crafting catchy captions, detailed product descriptions, and YouTube titles.</div>
+    </section>
+
+    <!-- Comments Section -->
+    <section id="comments" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Messages & Feedback</h2>
+            
+            <div class="comment-form-container">
+                <div class="comment-form">
+                    <h3>Leave a Message</h3>
+                    <div class="form-group">
+                        <input type="text" id="user" placeholder="Your Name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Share your thoughts..." class="form-textarea"></textarea>
+                    </div>
+                    <button onclick="submitComment()" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </div>
+            </div>
+            
+            <div class="comments-display">
+                <div class="comments-section">
+                    <h3><i class="fas fa-clock"></i> Recent Messages</h3>
+                    <div id="recent-comments" class="comments-list"></div>
+                </div>
+                
+                <div class="comments-section">
+                    <h3><i class="fas fa-fire"></i> Top Messages</h3>
+                    <div id="top-comments" class="comments-list"></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="card" onclick="toggleDetails(this)">
-        <div class="card-content">
-          <h3 data-icon="🧠">Prompt Engineering</h3>
-          <div class="card-details">Specialized in writing AI prompts tailored to creative, technical, and strategic applications.</div>
-        </div>
-      </div>
-    </div>
-  </div>  <div id="contact" class="section">
-    <h2 class="center">Contact Me</h2>
-    <div class="center">
-      <div class="card" style="display: inline-block; max-width: 400px;" onclick="toggleDetails(this)">
-        <div class="card-content">
-          <h3 data-icon="📞">Contact Info</h3>
-          <div class="card-details">
-            <p>Email: <a href="mailto:mahmanuhas@gmail.com">mahmanuhas@gmail.com</a></p>
-            <p>GitHub: <a href="https://github.com/mahman108" target="_blank">github.com/mahman108</a></p>
-            <p>Discord: <code>hrudaya12.</code></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>  <div id="comments" class="section">
-    <h2 class="center">Messages & Ratings</h2>
-    <div class="comment-box">
-      <input type="text" id="user" placeholder="Your Name" />
-      <textarea id="message" placeholder="Your comment here..."></textarea>
-      <button onclick="submitComment()">Send</button>
-    </div>
-    <div class="comment-box">
-      <h3>Recent Comments</h3>
-      <div id="recent-comments"></div>
-      <h3>Top Comments</h3>
-      <div id="top-comments"></div>
-    </div>
-  </div>  <script>
-    let current = "menu";
-    let comments = [];
+    </section>
 
-    function showSection(sectionId) {
-      document.getElementById(current).classList.remove("visible");
-      current = sectionId;
-      document.getElementById(current).classList.add("visible");
-    }
-
-    function toggleDetails(card) {
-      card.classList.toggle("open");
-    }
-
-    function submitComment() {
-      const user = document.getElementById("user").value.trim();
-      const msg = document.getElementById("message").value.trim();
-      if (!user || !msg) return alert("Please enter both name and message.");
-
-      const comment = { user, msg, likes: 0 };
-      comments.unshift(comment);
-      updateComments();
-      document.getElementById("user").value = "";
-      document.getElementById("message").value = "";
-    }
-
-    function likeComment(index, fromTop) {
-      const comment = fromTop ? [...comments].sort((a,b) => b.likes - a.likes)[index] : comments[index];
-      comment.likes++;
-      updateComments();
-    }
-
-    function updateComments() {
-      const recent = document.getElementById("recent-comments");
-      const top = document.getElementById("top-comments");
-      recent.innerHTML = "";
-      top.innerHTML = "";
-
-      comments.forEach((c, i) => {
-        const div = document.createElement("div");
-        div.className = "comment";
-        div.innerHTML = `<div class='comment-header'>${c.user}</div><div>${c.msg}</div><div><span class='like-btn' onclick='likeComment(${i}, false)'>&hearts; ${c.likes}</span></div>`;
-        recent.appendChild(div);
-      });
-
-      [...comments].sort((a,b) => b.likes - a.likes).forEach((c, i) => {
-        const div = document.createElement("div");
-        div.className = "comment";
-        div.innerHTML = `<div class='comment-header'>${c.user}</div><div>${c.msg}</div><div><span class='like-btn' onclick='likeComment(${i}, true)'>&hearts; ${c.likes}</span></div>`;
-        top.appendChild(div);
-      });
-    }
-  </script></body>
+    <script src="script.js"></script>
+</body>
 </html>
