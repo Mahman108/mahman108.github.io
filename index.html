@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mahman108's Digital Portfolio</title>
@@ -87,6 +86,7 @@ h1 {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
+  transform: rotateX(2deg) rotateY(2deg);
 }
 
 .card::before {
@@ -137,6 +137,40 @@ h1 {
   text-align: center;
 }
 
+.comment-box {
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: left;
+}
+.comment-box input,
+.comment-box textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.comment {
+  background: #fff;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.like-btn {
+  cursor: pointer;
+  color: crimson;
+  font-size: 1.2em;
+  margin-left: 10px;
+}
+
+.comment-header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
   </style>
 </head>
 <body>
@@ -146,6 +180,7 @@ h1 {
     <button class="tab-button" onclick="showSection('menu')">Home</button>
     <button class="tab-button" onclick="showSection('portfolio')">Portfolio</button>
     <button class="tab-button" onclick="showSection('contact')">Contact</button>
+    <button class="tab-button" onclick="showSection('comments')">Messages & Ratings</button>
   </div>  <div id="menu" class="section visible">
     <div class="center">
       <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" style="width: 150px; border-radius: 50%; margin-top: 20px;">
@@ -157,45 +192,64 @@ h1 {
       <div class="card" onclick="toggleDetails(this)">
         <div class="card-content">
           <h3 data-icon="🎙️">Voice Modulation</h3>
-          <div class="card-details">Expert in mimicry, dubbing, and character voice creation.</div>
+          <div class="card-details">I can perform voiceovers from low to high pitch, mimic wild animals, ghosts, and fictional characters.</div>
         </div>
       </div>
       <div class="card" onclick="toggleDetails(this)">
         <div class="card-content">
-          <h3 data-icon="✍️">Creative Writing</h3>
-          <div class="card-details">Writes short stories, web series scripts, and creative blogs.</div>
+          <h3 data-icon="📝">Creative Writing</h3>
+          <div class="card-details">I write blogs, custom stories and can improvise any narrative based on your idea or mood.</div>
         </div>
       </div>
       <div class="card" onclick="toggleDetails(this)">
         <div class="card-content">
           <h3 data-icon="🎨">Stylized Art</h3>
-          <div class="card-details">Turns real photos into anime-style digital art backgrounds.</div>
+          <div class="card-details">I convert photos into semi-realistic anime-style artwork and design environments creatively.</div>
         </div>
       </div>
       <div class="card" onclick="toggleDetails(this)">
         <div class="card-content">
           <h3 data-icon="📣">Content Strategy</h3>
-          <div class="card-details">Crafts engaging titles, captions, and descriptions for Instagram and YouTube.</div>
+          <div class="card-details">Expertise in crafting catchy captions, detailed product descriptions, and YouTube titles.</div>
         </div>
       </div>
       <div class="card" onclick="toggleDetails(this)">
         <div class="card-content">
           <h3 data-icon="🧠">Prompt Engineering</h3>
-          <div class="card-details">Writes customized, professional prompts tailored to your needs and vision.</div>
+          <div class="card-details">Specialized in writing AI prompts tailored to creative, technical, and strategic applications.</div>
         </div>
       </div>
     </div>
   </div>  <div id="contact" class="section">
     <h2 class="center">Contact Me</h2>
-    <div class="center card" style="display: inline-block; max-width: 400px;">
-      <div class="card-content">
-        <p>Email: <a href="mailto:mahmanuhas@gmail.com">mahmanuhas@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/mahman108" target="_blank">github.com/mahman108</a></p>
-        <p>Discord: <code>hrudaya12.</code></p>
+    <div class="center">
+      <div class="card" style="display: inline-block; max-width: 400px;" onclick="toggleDetails(this)">
+        <div class="card-content">
+          <h3 data-icon="📞">Contact Info</h3>
+          <div class="card-details">
+            <p>Email: <a href="mailto:mahmanuhas@gmail.com">mahmanuhas@gmail.com</a></p>
+            <p>GitHub: <a href="https://github.com/mahman108" target="_blank">github.com/mahman108</a></p>
+            <p>Discord: <code>hrudaya12.</code></p>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>  <div id="comments" class="section">
+    <h2 class="center">Messages & Ratings</h2>
+    <div class="comment-box">
+      <input type="text" id="user" placeholder="Your Name" />
+      <textarea id="message" placeholder="Your comment here..."></textarea>
+      <button onclick="submitComment()">Send</button>
+    </div>
+    <div class="comment-box">
+      <h3>Recent Comments</h3>
+      <div id="recent-comments"></div>
+      <h3>Top Comments</h3>
+      <div id="top-comments"></div>
     </div>
   </div>  <script>
     let current = "menu";
+    let comments = [];
 
     function showSection(sectionId) {
       document.getElementById(current).classList.remove("visible");
@@ -205,6 +259,45 @@ h1 {
 
     function toggleDetails(card) {
       card.classList.toggle("open");
+    }
+
+    function submitComment() {
+      const user = document.getElementById("user").value.trim();
+      const msg = document.getElementById("message").value.trim();
+      if (!user || !msg) return alert("Please enter both name and message.");
+
+      const comment = { user, msg, likes: 0 };
+      comments.unshift(comment);
+      updateComments();
+      document.getElementById("user").value = "";
+      document.getElementById("message").value = "";
+    }
+
+    function likeComment(index, fromTop) {
+      const comment = fromTop ? [...comments].sort((a,b) => b.likes - a.likes)[index] : comments[index];
+      comment.likes++;
+      updateComments();
+    }
+
+    function updateComments() {
+      const recent = document.getElementById("recent-comments");
+      const top = document.getElementById("top-comments");
+      recent.innerHTML = "";
+      top.innerHTML = "";
+
+      comments.forEach((c, i) => {
+        const div = document.createElement("div");
+        div.className = "comment";
+        div.innerHTML = `<div class='comment-header'>${c.user}</div><div>${c.msg}</div><div><span class='like-btn' onclick='likeComment(${i}, false)'>&hearts; ${c.likes}</span></div>`;
+        recent.appendChild(div);
+      });
+
+      [...comments].sort((a,b) => b.likes - a.likes).forEach((c, i) => {
+        const div = document.createElement("div");
+        div.className = "comment";
+        div.innerHTML = `<div class='comment-header'>${c.user}</div><div>${c.msg}</div><div><span class='like-btn' onclick='likeComment(${i}, true)'>&hearts; ${c.likes}</span></div>`;
+        top.appendChild(div);
+      });
     }
   </script></body>
 </html>
