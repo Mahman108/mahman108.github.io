@@ -1,279 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahman108's Digital Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahman108's Digital Portfolio</title>
+
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    <!-- Animated background particles -->
-    <div class="particles-container" id="particles"></div>
-    
-    <!-- Hero banner section -->
-    <div class="banner">
-        <div class="banner-overlay">
-            <div class="banner-content">
-                <h1 class="main-title">Mahman108's Portfolio</h1>
-                <p class="subtitle">Digital Creative & Technical Specialist</p>
-            </div>
-        </div>
-    </div>
 
-    <!-- Navigation -->
-    <nav class="navigation">
-        <button class="nav-button active" onclick="showSection('menu')" data-section="menu">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </button>
-        <button class="nav-button" onclick="showSection('portfolio')" data-section="portfolio">
-            <i class="fas fa-briefcase"></i>
-            <span>Portfolio</span>
-        </button>
-        <button class="nav-button" onclick="showSection('contact')" data-section="contact">
-            <i class="fas fa-envelope"></i>
-            <span>Contact</span>
-        </button>
-        <button class="nav-button" onclick="showSection('comments')" data-section="comments">
-            <i class="fas fa-comments"></i>
-            <span>Messages</span>
-        </button>
-    </nav>
+<div class="particles-container" id="particles"></div>
 
-    <!-- Home Section -->
-    <section id="menu" class="content-section visible">
-        <div class="container">
-            <div class="profile-card">
-                <div class="profile-image-container">
-                    <img src="https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg" alt="Profile Picture" class="profile-image">
-                    <div class="profile-glow"></div>
-                </div>
-                <div class="profile-info">
-                    <h2>Welcome to My Digital Realm</h2>
-                    <p class="profile-description">
-                        I'm a multifaceted digital creative specializing in voice modulation, 
-                        creative writing, stylized art, content strategy, and AI prompt engineering. 
-                        Explore my portfolio to discover the intersection of creativity and technology.
-                    </p>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number">5+</div>
-                            <div class="stat-label">Core Skills</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">∞</div>
-                            <div class="stat-label">Creativity</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">10/10</div>
-                            <div class="stat-label">Availability</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- NAV -->
+<nav class="navigation">
+<button type="button" class="nav-button active" data-section="menu">Home</button>
+<button type="button" class="nav-button" data-section="portfolio">Portfolio</button>
+<button type="button" class="nav-button" data-section="designs">Designs</button>
+<button type="button" class="nav-button" data-section="voice">Voice</button>
+<button type="button" class="nav-button" data-section="contact">Contact</button>
+</nav>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="content-section">
-        <div class="container">
-            <h2 class="section-title">Skills Showcase</h2>
-            <div class="skills-grid">
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="voice">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-microphone"></i>
-                            </div>
-                            <h3>Voice Modulation</h3>
-                            <p class="skill-brief">Professional voiceover expertise</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Voice Modulation</h3>
-                            <p>I can perform voiceovers from low to high pitch, mimic wild animals, ghosts, and fictional characters. Perfect for audiobooks, games, and multimedia projects.</p>
-                            <div class="skill-tags">
-                                <span class="tag">Voiceover</span>
-                                <span class="tag">Character Voices</span>
-                                <span class="tag">Audio Production</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- HOME -->
+<section id="menu" class="content-section visible">
+<div class="container">
+<h2>Welcome to My Portfolio</h2>
+</div>
+</section>
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="writing">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-pen-fancy"></i>
-                            </div>
-                            <h3>Creative Writing</h3>
-                            <p class="skill-brief">Storytelling and content creation</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Creative Writing</h3>
-                            <p>I write blogs, custom stories and can improvise any narrative based on your idea or mood. From technical documentation to creative fiction.</p>
-                            <div class="skill-tags">
-                                <span class="tag">Blogs</span>
-                                <span class="tag">Storytelling</span>
-                                <span class="tag">Content Strategy</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- PORTFOLIO -->
+<section id="portfolio" class="content-section">
+<div class="container">
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="art">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <h3>Graphic Designing</h3>
-                            <p class="skill-brief">Digital design</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Graphics Designing</h3>
-                            <p>I design posters, digital graphics, branding visuals and social media creatives. Focused on clean composition, color harmony and impactful visual communication.</p>
-                            <div class="skill-tags">
-                                <span class="tag">Poster,Thumbnail design</span>
-                                <span class="tag">Brand graphics</span>
-                                <span class="tag">Social media design</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="skills-grid">
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="strategy">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <h3>Content Strategy</h3>
-                            <p class="skill-brief">Marketing and social media</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Content Strategy</h3>
-                            <p>Expertise in crafting catchy captions, detailed product descriptions, and YouTube titles. Data-driven approach to content optimization.</p>
-                            <div class="skill-tags">
-                                <span class="tag">Social Media</span>
-                                <span class="tag">SEO Writing</span>
-                                <span class="tag">Marketing Copy</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Voice -->
+<div class="skill-card" onclick="toggleDetails(this)">
+<div class="card-inner">
+<div class="card-front">
+<h3>Voice Modulation</h3>
+</div>
+<div class="card-back">
+<h3>Voice Modulation</h3>
+<p>I perform voice acting, characters and effects.</p>
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="ai">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <h3>Prompt Engineering</h3>
-                            <p class="skill-brief">AI optimization specialist</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Prompt Engineering</h3>
-                            <p>Specialized in writing AI prompts tailored to creative, technical, and strategic applications. Maximizing AI output quality and relevance.</p>
-                            <div class="skill-tags">
-                                <span class="tag">AI Prompts</span>
-                                <span class="tag">Optimization</span>
-                                <span class="tag">Technical Writing</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<button onclick="showSection('voice')" class="submit-btn">
+Hear My Voice
+</button>
 
-    <!-- Contact Section -->
-    <section id="contact" class="content-section">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-card">
-                    <div class="contact-header">
-                        <div class="contact-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Let's Connect</h3>
-                        <p>Ready to bring your ideas to life? Reach out through any of these channels.</p>
-                    </div>
-                    
-                    <div class="contact-methods">
-                        <a href="mailto:mahmanuhas@gmail.com" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Email</span>
-                                <span class="method-value">mahmanuhas@gmail.com</span>
-                            </div>
-                        </a>
-                        
-                        <a href="https://github.com/mahman108" target="_blank" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">GitHub</span>
-                                <span class="method-value">github.com/mahman108</span>
-                            </div>
-                        </a>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-discord"></i>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Discord</span>
-                                <span class="method-value">hrudaya12.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+</div>
+</div>
+</div>
 
-    <!-- Comments Section -->
-    <section id="comments" class="content-section">
-        <div class="container">
-            <h2 class="section-title">Messages & Feedback</h2>
-            
-            <div class="comment-form-container">
-                <div class="comment-form">
-                    <h3>Leave a Message</h3>
-                    <div class="form-group">
-                        <input type="text" id="user" placeholder="Your Name" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" placeholder="Share your thoughts..." class="form-textarea"></textarea>
-                    </div>
-                    <button onclick="submitComment()" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Send Message
-                    </button>
-                </div>
-            </div>
-            
-            <div class="comments-display">
-                <div class="comments-section">
-                    <h3><i class="fas fa-clock"></i> Recent Messages</h3>
-                    <div id="recent-comments" class="comments-list"></div>
-                </div>
-                
-                <div class="comments-section">
-                    <h3><i class="fas fa-fire"></i> Top Messages</h3>
-                    <div id="top-comments" class="comments-list"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Graphic Design -->
+<div class="skill-card" onclick="toggleDetails(this)">
+<div class="card-inner">
+<div class="card-front">
+<h3>Graphic Designing</h3>
+</div>
+<div class="card-back">
+<h3>Graphic Designing</h3>
+<p>I create posters, graphics and social media designs.</p>
 
-    <script src="script.js"></script>
+<button onclick="showSection('designs')" class="submit-btn">
+View My Designs
+</button>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- DESIGN SECTION -->
+<section id="designs" class="content-section">
+<div class="container">
+<h2 class="section-title">My Designs</h2>
+
+<div class="skills-grid">
+
+<img src="https://i.ibb.co/zWyygvZy/your-image-1.jpg" class="profile-image">
+<img src="https://i.ibb.co/8g9zsycZ/your-image-2.jpg" class="profile-image">
+<img src="https://i.ibb.co/4gdYPfsx/your-image-3.jpg" class="profile-image">
+
+</div>
+
+</div>
+</section>
+
+<!-- VOICE -->
+<section id="voice" class="content-section">
+<div class="container">
+<h2 class="section-title">Voice Samples</h2>
+
+<p>You will add audio here later</p>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="content-section">
+<div class="container">
+<h2>Contact</h2>
+</div>
+</section>
+
+<script src="script.js"></script>
+
 </body>
 </html>
