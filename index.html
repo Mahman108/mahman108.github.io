@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mahman108's Digital Portfolio</title>
-
-<link rel="stylesheet" href="styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahman108's Digital Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
 <div class="particles-container" id="particles"></div>
 
-<!-- NAV -->
+<div class="banner">
+    <div class="banner-overlay">
+        <div class="banner-content">
+            <h1 class="main-title">Mahman108's Portfolio</h1>
+            <p class="subtitle">Digital Creative & Technical Specialist</p>
+        </div>
+    </div>
+</div>
+
 <nav class="navigation">
-<button type="button" class="nav-button active" data-section="menu">Home</button>
-<button type="button" class="nav-button" data-section="portfolio">Portfolio</button>
-<button type="button" class="nav-button" data-section="designs">Designs</button>
-<button type="button" class="nav-button" data-section="voice">Voice</button>
-<button type="button" class="nav-button" data-section="contact">Contact</button>
+    <button class="nav-button active" data-section="menu">Home</button>
+    <button class="nav-button" data-section="portfolio">Portfolio</button>
+    <button class="nav-button" data-section="contact">Contact</button>
+    <button class="nav-button" data-section="comments">Messages</button>
 </nav>
 
-<!-- HOME -->
+<!-- Home -->
 <section id="menu" class="content-section visible">
-<div class="container">
-<h2>Welcome to My Portfolio</h2>
-</div>
+    <div class="container">
+        <h2>Welcome to My Digital Realm</h2>
+    </div>
 </section>
 
-<!-- PORTFOLIO -->
+<!-- Portfolio -->
 <section id="portfolio" class="content-section">
 <div class="container">
+<h2 class="section-title">Skills Showcase</h2>
 
 <div class="skills-grid">
 
@@ -41,10 +48,16 @@
 <div class="card-front">
 <h3>Voice Modulation</h3>
 </div>
+
 <div class="card-back">
 <h3>Voice Modulation</h3>
-<p>I perform voice acting, characters and effects.</p>
+<p>I can perform voiceovers, characters, and sound effects.</p>
 
+<div class="skill-tags">
+<span class="tag">Voiceover</span>
+</div>
+
+<!-- ✅ ADDED BUTTON -->
 <button onclick="showSection('voice')" class="submit-btn">
 Hear My Voice
 </button>
@@ -53,16 +66,23 @@ Hear My Voice
 </div>
 </div>
 
-<!-- Graphic Design -->
+<!-- Graphic Designing -->
 <div class="skill-card" onclick="toggleDetails(this)">
 <div class="card-inner">
 <div class="card-front">
 <h3>Graphic Designing</h3>
+<p class="skill-brief">Visual branding and digital design</p>
 </div>
+
 <div class="card-back">
 <h3>Graphic Designing</h3>
-<p>I create posters, graphics and social media designs.</p>
+<p>I design posters, graphics, and social media creatives.</p>
 
+<div class="skill-tags">
+<span class="tag">Design</span>
+</div>
+
+<!-- ✅ ADDED BUTTON -->
 <button onclick="showSection('designs')" class="submit-btn">
 View My Designs
 </button>
@@ -75,40 +95,46 @@ View My Designs
 </div>
 </section>
 
-<!-- DESIGN SECTION -->
-<section id="designs" class="content-section">
-<div class="container">
-<h2 class="section-title">My Designs</h2>
-
-<div class="skills-grid">
-
-<img src="https://i.ibb.co/zWyygvZy/your-image-1.jpg" class="profile-image">
-<img src="https://i.ibb.co/8g9zsycZ/your-image-2.jpg" class="profile-image">
-<img src="https://i.ibb.co/4gdYPfsx/your-image-3.jpg" class="profile-image">
-
-</div>
-
-</div>
-</section>
-
-<!-- VOICE -->
-<section id="voice" class="content-section">
-<div class="container">
-<h2 class="section-title">Voice Samples</h2>
-
-<p>You will add audio here later</p>
-
-</div>
-</section>
-
-<!-- CONTACT -->
+<!-- Contact -->
 <section id="contact" class="content-section">
 <div class="container">
 <h2>Contact</h2>
 </div>
 </section>
 
-<script src="script.js"></script>
+<!-- Comments -->
+<section id="comments" class="content-section">
+<div class="container">
+<h2>Messages</h2>
+</div>
+</section>
 
+<!-- ✅ NEW DESIGN SECTION -->
+<section id="designs" class="content-section">
+<div class="container">
+<h2 class="section-title">My Designs</h2>
+
+<div class="skills-grid">
+<img src="https://i.ibb.co/zWyygvZy/your-image-1.jpg" class="profile-image">
+<img src="https://i.ibb.co/8g9zsycZ/your-image-2.jpg" class="profile-image">
+<img src="https://i.ibb.co/4gdYPfsx/your-image-3.jpg" class="profile-image">
+</div>
+
+</div>
+</section>
+
+<!-- ✅ NEW VOICE SECTION -->
+<section id="voice" class="content-section">
+<div class="container">
+<h2 class="section-title">Voice Samples</h2>
+
+<div class="contact-card">
+<p>Add your voice samples here later.</p>
+</div>
+
+</div>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
