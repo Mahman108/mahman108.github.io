@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CRITICAL FIX: Ensures text stays inside the cards */
+        /* CRITICAL FIX: Ensures text stays inside the cards and looks aligned */
         .card-back {
             overflow-y: auto !important;
             padding: 20px !important;
@@ -23,7 +23,6 @@
         .card-back::-webkit-scrollbar { width: 4px; }
         .card-back::-webkit-scrollbar-thumb { background: #8B5CF6; border-radius: 10px; }
 
-        /* Comment System Styling */
         .comment {
             background: rgba(255, 255, 255, 0.05);
             border-left: 3px solid #8B5CF6;
@@ -35,7 +34,16 @@
         .comment-header { font-weight: 600; color: #8B5CF6; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
         .comment-actions { margin-top: 10px; font-size: 0.9rem; cursor: pointer; }
         .like-btn { transition: transform 0.2s ease; display: inline-block; }
-        .loading { border: 2px solid #f3f3f3; border-top: 2px solid #8B5CF6; border-radius: 50%; width: 12px; height: 12px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; }
+        
+        .loading { 
+            border: 2px solid #f3f3f3; 
+            border-top: 2px solid #8B5CF6; 
+            border-radius: 50%; 
+            width: 12px; height: 12px; 
+            animation: spin 1s linear infinite; 
+            display: inline-block; 
+            margin-right: 8px; 
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -102,11 +110,26 @@
                         </div>
                         <div class="card-back">
                             <h3>Voice Modulation</h3>
-                            <p>Bringing scripts to life with precision. Whether you need a commanding tone for a commercial or dynamic character voices for gaming, I deliver audio that hooks the listener.</p>
+                            <p>Bringing scripts to life with precision. Whether you need a commanding tone for a commercial or character voices for gaming, I deliver audio that hooks the listener.</p>
                             <audio controls style="width:100%; height: 30px; margin: 10px 0;">
                                 <source src="sample.mp3" type="audio/mpeg">
                             </audio>
                             <div class="skill-tags"><span class="tag">Voiceover</span><span class="tag">Character</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="writing">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon"><i class="fas fa-pen-fancy"></i></div>
+                            <h3>Creative Writing</h3>
+                            <p class="skill-brief">Narratives that convert</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Creative Writing</h3>
+                            <p>Words are tools. I craft compelling narratives, from structured world-building fiction to high-retention blogs. Tell me the goal, and I'll write the journey.</p>
+                            <div class="skill-tags"><span class="tag">Storytelling</span><span class="tag">Blogs</span></div>
                         </div>
                     </div>
                 </div>
@@ -120,13 +143,28 @@
                         </div>
                         <div class="card-back">
                             <h3>Graphic Designing</h3>
-                            <p>Visuals built to stop the scroll. Check out my favorite conceptual 'experiments' below.</p>
+                            <p>Visuals built to stop the scroll. These are some of my favorite conceptual designs.</p>
                             <div class="design-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0;">
-                                <img src="image_0.png" style="width:100%; border-radius: 4px; border: 1px solid #333;">
-                                <img src="image_1.png" style="width:100%; border-radius: 4px; border: 1px solid #333;">
-                                <img src="image_2.png" style="width:100%; border-radius: 4px; border: 1px solid #333;">
+                                <img src="1000235681.png" style="width:100%; border-radius: 4px; border: 1px solid #333;" alt="Design 1">
+                                <img src="1000213295.png" style="width:100%; border-radius: 4px; border: 1px solid #333;" alt="Design 2">
+                                <img src="1000212824.png" style="width:100%; border-radius: 4px; border: 1px solid #333;" alt="Design 3">
                             </div>
-                            <div class="skill-tags"><span class="tag">Digital Art</span><span class="tag">Branding</span></div>
+                            <div class="skill-tags"><span class="tag">Digital Art</span><span class="tag">Social</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card" onclick="toggleDetails(this)" data-skill="strategy">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon"><i class="fas fa-bullhorn"></i></div>
+                            <h3>Content Strategy</h3>
+                            <p class="skill-brief">Data-driven marketing</p>
+                        </div>
+                        <div class="card-back">
+                            <h3>Content Strategy</h3>
+                            <p>Algorithms favor logic. I build content frameworks, optimized YouTube titles, and high-conversion copy that turns viewers into audiences.</p>
+                            <div class="skill-tags"><span class="tag">SEO</span><span class="tag">Analytics</span></div>
                         </div>
                     </div>
                 </div>
@@ -140,11 +178,11 @@
                         </div>
                         <div class="card-back">
                             <h3>Prompt Engineering</h3>
-                            <p>I don't just talk to AI; I engineer it. By structuring complex, parameter-driven prompts, I force AI tools to bypass generic outputs and deliver precise, high-tier results.</p>
+                            <p>By structuring complex, parameter-driven prompts, I force AI tools to bypass generic outputs and deliver precise, high-tier results.</p>
                             <div style="background: rgba(255,255,255,0.05); padding: 8px; border-left: 2px solid #8B5CF6; font-size: 0.85em; margin: 10px 0;">
-                                <strong>Logic:</strong> Engineered an automated script generator bypassing AI detection.
+                                <strong>Success:</strong> Automated script generator bypassing detection.
                             </div>
-                            <div class="skill-tags"><span class="tag">AI Logic</span><span class="tag">Architecture</span></div>
+                            <div class="skill-tags"><span class="tag">AI Logic</span><span class="tag">GPT-4</span></div>
                         </div>
                     </div>
                 </div>
@@ -164,6 +202,9 @@
                     <a href="https://github.com/mahman108" target="_blank" class="contact-method">
                         <i class="fab fa-github"></i> <span>github.com/mahman108</span>
                     </a>
+                    <div class="contact-method">
+                        <i class="fab fa-discord"></i> <span>hrudaya12.</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,7 +221,7 @@
             <div class="comments-display">
                 <div id="recent-comments" class="comments-list"></div>
                 <hr style="opacity: 0.1; margin: 20px 0;">
-                <h3><i class="fas fa-fire"></i> Most Liked</h3>
+                <h3><i class="fas fa-fire"></i> Top Messages</h3>
                 <div id="top-comments" class="comments-list"></div>
             </div>
         </div>
