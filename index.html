@@ -7,6 +7,37 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CRITICAL FIX: Ensures text stays inside the cards */
+        .card-back {
+            overflow-y: auto !important;
+            padding: 20px !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            scrollbar-width: thin;
+            scrollbar-color: #8B5CF6 #1a1a1a;
+            text-align: left;
+        }
+        .card-back::-webkit-scrollbar { width: 4px; }
+        .card-back::-webkit-scrollbar-thumb { background: #8B5CF6; border-radius: 10px; }
+
+        /* Comment System Styling */
+        .comment {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #8B5CF6;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .comment-header { font-weight: 600; color: #8B5CF6; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .comment-actions { margin-top: 10px; font-size: 0.9rem; cursor: pointer; }
+        .like-btn { transition: transform 0.2s ease; display: inline-block; }
+        .loading { border: 2px solid #f3f3f3; border-top: 2px solid #8B5CF6; border-radius: 50%; width: 12px; height: 12px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
 <body>
     <div class="particles-container" id="particles"></div>
@@ -21,21 +52,17 @@
     </div>
 
     <nav class="navigation">
-        <button class="nav-button active" onclick="showSection('menu')" data-section="menu">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
+        <button class="nav-button active" data-section="menu">
+            <i class="fas fa-home"></i> <span>Home</span>
         </button>
-        <button class="nav-button" onclick="showSection('portfolio')" data-section="portfolio">
-            <i class="fas fa-briefcase"></i>
-            <span>Portfolio</span>
+        <button class="nav-button" data-section="portfolio">
+            <i class="fas fa-briefcase"></i> <span>Portfolio</span>
         </button>
-        <button class="nav-button" onclick="showSection('contact')" data-section="contact">
-            <i class="fas fa-envelope"></i>
-            <span>Contact</span>
+        <button class="nav-button" data-section="contact">
+            <i class="fas fa-envelope"></i> <span>Contact</span>
         </button>
-        <button class="nav-button" onclick="showSection('comments')" data-section="comments">
-            <i class="fas fa-comments"></i>
-            <span>Messages</span>
+        <button class="nav-button" data-section="comments">
+            <i class="fas fa-comments"></i> <span>Messages</span>
         </button>
     </nav>
 
@@ -52,18 +79,9 @@
                         I am a digital creative bridging the gap between logic and imagination. Specializing in AI prompt engineering, strategic design, and compelling narratives, I build assets that capture attention and drive results.
                     </p>
                     <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number">5+</div>
-                            <div class="stat-label">Core Skills</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">∞</div>
-                            <div class="stat-label">Creativity</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">10/10</div>
-                            <div class="stat-label">Availability</div>
-                        </div>
+                        <div class="stat-item"><div class="stat-number">5+</div><div class="stat-label">Core Skills</div></div>
+                        <div class="stat-item"><div class="stat-number">∞</div><div class="stat-label">Creativity</div></div>
+                        <div class="stat-item"><div class="stat-number">10/10</div><div class="stat-label">Availability</div></div>
                     </div>
                 </div>
             </div>
@@ -78,9 +96,7 @@
                 <div class="skill-card" onclick="toggleDetails(this)" data-skill="voice">
                     <div class="card-inner">
                         <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-microphone"></i>
-                            </div>
+                            <div class="skill-icon"><i class="fas fa-microphone"></i></div>
                             <h3>Voice Modulation</h3>
                             <p class="skill-brief">Professional audio delivery</p>
                         </div>
@@ -88,37 +104,9 @@
                             <h3>Voice Modulation</h3>
                             <p>Bringing scripts to life with precision. Whether you need a commanding tone for a commercial or dynamic character voices for gaming, I deliver audio that hooks the listener.</p>
                             <audio controls style="width:100%; height: 30px; margin: 10px 0;">
-                                <source src="your-audio-sample.mp3" type="audio/mpeg">
+                                <source src="sample.mp3" type="audio/mpeg">
                             </audio>
-                            <div class="skill-tags">
-                                <span class="tag">Voiceover</span>
-                                <span class="tag">Character Voices</span>
-                                <span class="tag">Audio Production</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="writing">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-pen-fancy"></i>
-                            </div>
-                            <h3>Creative Writing</h3>
-                            <p class="skill-brief">Narratives that convert</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Creative Writing</h3>
-                            <p>Words are tools. I craft compelling narratives, from structured world-building fiction to high-retention blogs. Tell me the goal, and I'll write the journey.</p>
-                            <a href="link-to-your-story.pdf" style="display: block; color: #4CAF50; margin: 10px 0; text-decoration: none; font-weight: bold;">
-                                <i class="fas fa-file-pdf"></i> Read My Latest Work
-                            </a>
-                            <div class="skill-tags">
-                                <span class="tag">Blogs</span>
-                                <span class="tag">Storytelling</span>
-                                <span class="tag">Content Strategy</span>
-                            </div>
+                            <div class="skill-tags"><span class="tag">Voiceover</span><span class="tag">Character</span></div>
                         </div>
                     </div>
                 </div>
@@ -126,60 +114,19 @@
                 <div class="skill-card" onclick="toggleDetails(this)" data-skill="art">
                     <div class="card-inner">
                         <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
+                            <div class="skill-icon"><i class="fas fa-palette"></i></div>
                             <h3>Graphic Designing</h3>
                             <p class="skill-brief">High-impact visuals</p>
                         </div>
                         <div class="card-back">
                             <h3>Graphic Designing</h3>
                             <p>Visuals built to stop the scroll. Check out my favorite conceptual 'experiments' below.</p>
-                            
-                            <div class="design-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0;">
-                                
-                                <div class="design-item" style="border: 1px solid #333; border-radius: 4px; overflow: hidden; background: #1a1a1a;">
-                                    <img src="image_0.png" alt="Viral YouTube Guide Design" style="width:100%; height: auto; display: block; object-fit: cover;">
-                                    <p style="font-size: 0.8rem; padding: 5px; margin: 0; color: #fff;">Viral YouTube Guide</p>
-                                </div>
-
-                                <div class="design-item" style="border: 1px solid #333; border-radius: 4px; overflow: hidden; background: #1a1a1a;">
-                                    <img src="image_1.png" alt="Anime Illustration Design" style="width:100%; height: auto; display: block; object-fit: cover;">
-                                    <p style="font-size: 0.8rem; padding: 5px; margin: 0; color: #fff;">Baki/Anime Poster</p>
-                                </div>
-
-                                <div class="design-item" style="border: 1px solid #333; border-radius: 4px; overflow: hidden; background: #1a1a1a;">
-                                    <img src="image_2.png" alt="Conceptual Infographic" style="width:100%; height: auto; display: block; object-fit: cover;">
-                                    <p style="font-size: 0.8rem; padding: 5px; margin: 0; color: #fff;">Stop Bottle Concept</p>
-                                </div>
-
+                            <div class="design-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0;">
+                                <img src="image_0.png" style="width:100%; border-radius: 4px; border: 1px solid #333;">
+                                <img src="image_1.png" style="width:100%; border-radius: 4px; border: 1px solid #333;">
+                                <img src="image_2.png" style="width:100%; border-radius: 4px; border: 1px solid #333;">
                             </div>
-                            <div class="skill-tags">
-                                <span class="tag">Digital Art</span>
-                                <span class="tag">Conceptual Design</span>
-                                <span class="tag">YouTube Assets</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="strategy">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <h3>Content Strategy</h3>
-                            <p class="skill-brief">Data-driven marketing</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Content Strategy</h3>
-                            <p>Algorithms favor logic. I build data-driven content frameworks, optimized YouTube titles, and high-conversion copy that turns casual viewers into loyal audiences.</p>
-                            <div class="skill-tags">
-                                <span class="tag">Social Media</span>
-                                <span class="tag">SEO Writing</span>
-                                <span class="tag">Analytics</span>
-                            </div>
+                            <div class="skill-tags"><span class="tag">Digital Art</span><span class="tag">Branding</span></div>
                         </div>
                     </div>
                 </div>
@@ -187,27 +134,21 @@
                 <div class="skill-card" onclick="toggleDetails(this)" data-skill="ai">
                     <div class="card-inner">
                         <div class="card-front">
-                            <div class="skill-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
+                            <div class="skill-icon"><i class="fas fa-robot"></i></div>
                             <h3>Prompt Engineering</h3>
                             <p class="skill-brief">AI optimization specialist</p>
                         </div>
                         <div class="card-back">
                             <h3>Prompt Engineering</h3>
                             <p>I don't just talk to AI; I engineer it. By structuring complex, parameter-driven prompts, I force AI tools to bypass generic outputs and deliver precise, high-tier results.</p>
-                            <div style="background: rgba(255,255,255,0.05); padding: 8px; border-left: 2px solid #4CAF50; font-size: 0.85em; margin: 10px 0; text-align: left;">
-                                <strong>Case Study:</strong> Engineered an automated script generator bypassing AI detection.<br>
-                                <a href="#" style="color: #4CAF50; text-decoration: none;">View Prompt Logic →</a>
+                            <div style="background: rgba(255,255,255,0.05); padding: 8px; border-left: 2px solid #8B5CF6; font-size: 0.85em; margin: 10px 0;">
+                                <strong>Logic:</strong> Engineered an automated script generator bypassing AI detection.
                             </div>
-                            <div class="skill-tags">
-                                <span class="tag">AI Architecture</span>
-                                <span class="tag">Optimization</span>
-                                <span class="tag">Logic Structuring</span>
-                            </div>
+                            <div class="skill-tags"><span class="tag">AI Logic</span><span class="tag">Architecture</span></div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -215,50 +156,14 @@
     <section id="contact" class="content-section">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-card">
-                    <div class="contact-header">
-                        <div class="contact-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h3>Let's Connect</h3>
-                        <p>Ready to bring your ideas to life? Reach out through any of these channels.</p>
-                        <p style="color: #4CAF50; font-weight: 600; margin-top: 15px; font-size: 1.1em;">
-                            Currently accepting freelance projects for AI Content & Design.
-                        </p>
-                    </div>
-                    
-                    <div class="contact-methods">
-                        <a href="mailto:mahmanuhas@gmail.com" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Email</span>
-                                <span class="method-value">mahmanuhas@gmail.com</span>
-                            </div>
-                        </a>
-                        
-                        <a href="https://github.com/mahman108" target="_blank" class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">GitHub</span>
-                                <span class="method-value">github.com/mahman108</span>
-                            </div>
-                        </a>
-                        
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fab fa-discord"></i>
-                            </div>
-                            <div class="method-info">
-                                <span class="method-label">Discord</span>
-                                <span class="method-value">hrudaya12.</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="contact-card">
+                <div class="contact-methods">
+                    <a href="mailto:mahmanuhas@gmail.com" class="contact-method">
+                        <i class="fas fa-envelope"></i> <span>mahmanuhas@gmail.com</span>
+                    </a>
+                    <a href="https://github.com/mahman108" target="_blank" class="contact-method">
+                        <i class="fab fa-github"></i> <span>github.com/mahman108</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -267,33 +172,16 @@
     <section id="comments" class="content-section">
         <div class="container">
             <h2 class="section-title">Messages & Feedback</h2>
-            
-            <div class="comment-form-container">
-                <div class="comment-form">
-                    <h3>Leave a Message</h3>
-                    <div class="form-group">
-                        <input type="text" id="user" placeholder="Your Name" class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" placeholder="Share your thoughts..." class="form-textarea"></textarea>
-                    </div>
-                    <button onclick="submitComment()" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Send Message
-                    </button>
-                </div>
+            <div class="comment-form">
+                <input type="text" id="user" placeholder="Your Name" class="form-input">
+                <textarea id="message" placeholder="Share your thoughts..." class="form-textarea"></textarea>
+                <button onclick="submitComment()" class="submit-btn">Send Message</button>
             </div>
-            
             <div class="comments-display">
-                <div class="comments-section">
-                    <h3><i class="fas fa-clock"></i> Recent Messages</h3>
-                    <div id="recent-comments" class="comments-list"></div>
-                </div>
-                
-                <div class="comments-section">
-                    <h3><i class="fas fa-fire"></i> Top Messages</h3>
-                    <div id="top-comments" class="comments-list"></div>
-                </div>
+                <div id="recent-comments" class="comments-list"></div>
+                <hr style="opacity: 0.1; margin: 20px 0;">
+                <h3><i class="fas fa-fire"></i> Most Liked</h3>
+                <div id="top-comments" class="comments-list"></div>
             </div>
         </div>
     </section>
