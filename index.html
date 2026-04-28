@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Animated background particles -->
     <div class="particles-container" id="particles"></div>
     
-    <!-- Hero banner section -->
     <div class="banner">
         <div class="banner-overlay">
             <div class="banner-content">
@@ -22,7 +20,6 @@
         </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navigation">
         <button class="nav-button active" onclick="showSection('menu')" data-section="menu">
             <i class="fas fa-home"></i>
@@ -42,7 +39,6 @@
         </button>
     </nav>
 
-    <!-- Home Section -->
     <section id="menu" class="content-section visible">
         <div class="container">
             <div class="profile-card">
@@ -53,9 +49,7 @@
                 <div class="profile-info">
                     <h2>Welcome to My Digital Realm</h2>
                     <p class="profile-description">
-                        I'm a multifaceted digital creative specializing in voice modulation, 
-                        creative writing, stylized art, content strategy, and AI prompt engineering. 
-                        Explore my portfolio to discover the intersection of creativity and technology.
+                        I am a digital creative bridging the gap between logic and imagination. Specializing in AI prompt engineering, strategic design, and compelling narratives, I build assets that capture attention and drive results.
                     </p>
                     <div class="stats-grid">
                         <div class="stat-item">
@@ -67,7 +61,7 @@
                             <div class="stat-label">Creativity</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">As per demand 10/10</div>
+                            <div class="stat-number">10/10</div>
                             <div class="stat-label">Availability</div>
                         </div>
                     </div>
@@ -76,11 +70,11 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
     <section id="portfolio" class="content-section">
         <div class="container">
             <h2 class="section-title">Skills Showcase</h2>
             <div class="skills-grid">
+                
                 <div class="skill-card" onclick="toggleDetails(this)" data-skill="voice">
                     <div class="card-inner">
                         <div class="card-front">
@@ -88,11 +82,14 @@
                                 <i class="fas fa-microphone"></i>
                             </div>
                             <h3>Voice Modulation</h3>
-                            <p class="skill-brief">Professional voiceover expertise</p>
+                            <p class="skill-brief">Professional audio delivery</p>
                         </div>
                         <div class="card-back">
                             <h3>Voice Modulation</h3>
-                            <p>I can perform voiceovers from low to high pitch, mimic wild animals, ghosts, and fictional characters. Perfect for audiobooks, games, and multimedia projects.</p>
+                            <p>Bringing scripts to life with precision. Whether you need a commanding tone for a commercial or dynamic character voices for gaming, I deliver audio that hooks the listener.</p>
+                            <audio controls style="width:100%; height: 30px; margin: 10px 0;">
+                                <source src="your-audio-sample.mp3" type="audio/mpeg">
+                            </audio>
                             <div class="skill-tags">
                                 <span class="tag">Voiceover</span>
                                 <span class="tag">Character Voices</span>
@@ -109,11 +106,14 @@
                                 <i class="fas fa-pen-fancy"></i>
                             </div>
                             <h3>Creative Writing</h3>
-                            <p class="skill-brief">Storytelling and content creation</p>
+                            <p class="skill-brief">Narratives that convert</p>
                         </div>
                         <div class="card-back">
                             <h3>Creative Writing</h3>
-                            <p>I write blogs, custom stories and can improvise any narrative based on your idea or mood. From technical documentation to creative fiction.</p>
+                            <p>Words are tools. I craft compelling narratives, from structured world-building fiction to high-retention blogs. Tell me the goal, and I'll write the journey.</p>
+                            <a href="link-to-your-story.pdf" style="display: block; color: #4CAF50; margin: 10px 0; text-decoration: none; font-weight: bold;">
+                                <i class="fas fa-file-pdf"></i> Read My Latest Work
+                            </a>
                             <div class="skill-tags">
                                 <span class="tag">Blogs</span>
                                 <span class="tag">Storytelling</span>
@@ -130,15 +130,34 @@
                                 <i class="fas fa-palette"></i>
                             </div>
                             <h3>Graphic Designing</h3>
-                            <p class="skill-brief">Imagination and Designing</p>
+                            <p class="skill-brief">High-impact visuals</p>
                         </div>
                         <div class="card-back">
                             <h3>Graphic Designing</h3>
-                            <p>I Design Thumbnail,Posters,Post,Etc in my designing style I offer professional looking piece of Graphics.>
+                            <p>Visuals built to stop the scroll. Check out my favorite conceptual 'experiments' below.</p>
+                            
+                            <div class="design-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0;">
+                                
+                                <div class="design-item" style="border: 1px solid #333; border-radius: 4px; overflow: hidden; background: #1a1a1a;">
+                                    <img src="image_0.png" alt="Viral YouTube Guide Design" style="width:100%; height: auto; display: block; object-fit: cover;">
+                                    <p style="font-size: 0.8rem; padding: 5px; margin: 0; color: #fff;">Viral YouTube Guide</p>
+                                </div>
+
+                                <div class="design-item" style="border: 1px solid #333; border-radius: 4px; overflow: hidden; background: #1a1a1a;">
+                                    <img src="image_1.png" alt="Anime Illustration Design" style="width:100%; height: auto; display: block; object-fit: cover;">
+                                    <p style="font-size: 0.8rem; padding: 5px; margin: 0; color: #fff;">Baki/Anime Poster</p>
+                                </div>
+
+                                <div class="design-item" style="border: 1px solid #333; border-radius: 4px; overflow: hidden; background: #1a1a1a;">
+                                    <img src="image_2.png" alt="Conceptual Infographic" style="width:100%; height: auto; display: block; object-fit: cover;">
+                                    <p style="font-size: 0.8rem; padding: 5px; margin: 0; color: #fff;">Stop Bottle Concept</p>
+                                </div>
+
+                            </div>
                             <div class="skill-tags">
                                 <span class="tag">Digital Art</span>
-                                <span class="tag">Designing</span>
-                                <span class="tag">Profesional Graphics</span>
+                                <span class="tag">Conceptual Design</span>
+                                <span class="tag">YouTube Assets</span>
                             </div>
                         </div>
                     </div>
@@ -151,15 +170,15 @@
                                 <i class="fas fa-bullhorn"></i>
                             </div>
                             <h3>Content Strategy</h3>
-                            <p class="skill-brief">Marketing and social media</p>
+                            <p class="skill-brief">Data-driven marketing</p>
                         </div>
                         <div class="card-back">
                             <h3>Content Strategy</h3>
-                            <p>Expertise in crafting catchy captions, detailed product descriptions, and YouTube titles. Data-driven approach to content optimization.</p>
+                            <p>Algorithms favor logic. I build data-driven content frameworks, optimized YouTube titles, and high-conversion copy that turns casual viewers into loyal audiences.</p>
                             <div class="skill-tags">
                                 <span class="tag">Social Media</span>
                                 <span class="tag">SEO Writing</span>
-                                <span class="tag">Marketing Copy</span>
+                                <span class="tag">Analytics</span>
                             </div>
                         </div>
                     </div>
@@ -176,11 +195,15 @@
                         </div>
                         <div class="card-back">
                             <h3>Prompt Engineering</h3>
-                            <p>Specialized in writing AI prompts tailored to creative, technical, and strategic applications. Maximizing AI output quality and relevance.</p>
+                            <p>I don't just talk to AI; I engineer it. By structuring complex, parameter-driven prompts, I force AI tools to bypass generic outputs and deliver precise, high-tier results.</p>
+                            <div style="background: rgba(255,255,255,0.05); padding: 8px; border-left: 2px solid #4CAF50; font-size: 0.85em; margin: 10px 0; text-align: left;">
+                                <strong>Case Study:</strong> Engineered an automated script generator bypassing AI detection.<br>
+                                <a href="#" style="color: #4CAF50; text-decoration: none;">View Prompt Logic →</a>
+                            </div>
                             <div class="skill-tags">
-                                <span class="tag">AI Prompts</span>
+                                <span class="tag">AI Architecture</span>
                                 <span class="tag">Optimization</span>
-                                <span class="tag">Technical Writing</span>
+                                <span class="tag">Logic Structuring</span>
                             </div>
                         </div>
                     </div>
@@ -189,7 +212,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="content-section">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
@@ -201,6 +223,9 @@
                         </div>
                         <h3>Let's Connect</h3>
                         <p>Ready to bring your ideas to life? Reach out through any of these channels.</p>
+                        <p style="color: #4CAF50; font-weight: 600; margin-top: 15px; font-size: 1.1em;">
+                            Currently accepting freelance projects for AI Content & Design.
+                        </p>
                     </div>
                     
                     <div class="contact-methods">
@@ -239,7 +264,6 @@
         </div>
     </section>
 
-    <!-- Comments Section -->
     <section id="comments" class="content-section">
         <div class="container">
             <h2 class="section-title">Messages & Feedback</h2>
@@ -277,4 +301,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-1240335491
