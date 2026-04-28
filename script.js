@@ -41,16 +41,19 @@ function createParticle(container) {
     const particle = document.createElement('div');
     particle.className = 'particle';
     
+    // Random starting position
     particle.style.left = Math.random() * 100 + '%';
     particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
     particle.style.animationDelay = Math.random() * 2 + 's';
     
+    // Random color variation
     const colors = ['#8B5CF6', '#A855F7', '#92400E', '#B45309'];
     particle.style.background = colors[Math.floor(Math.random() * colors.length)];
     
     container.appendChild(particle);
     particleCount++;
     
+    // Remove particle after animation
     setTimeout(() => {
         if (particle.parentNode) {
             particle.parentNode.removeChild(particle);
@@ -61,6 +64,7 @@ function createParticle(container) {
 
 // Section navigation
 function showSection(sectionId) {
+    // Hide current section with fade out
     const currentElement = document.getElementById(currentSection);
     if (currentElement) {
         currentElement.style.opacity = '0';
@@ -69,6 +73,7 @@ function showSection(sectionId) {
         setTimeout(() => {
             currentElement.classList.remove("visible");
             
+            // Show new section with fade in
             currentSection = sectionId;
             const newElement = document.getElementById(currentSection);
             if (newElement) {
@@ -110,15 +115,18 @@ function initializeSkillCards() {
 function toggleDetails(card) {
     const isFlipped = card.classList.contains('flipped');
     
+    // Reset all cards
     document.querySelectorAll('.skill-card').forEach(c => {
         c.classList.remove('flipped');
         c.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
     });
     
+    // Toggle current card
     if (!isFlipped) {
         card.classList.add('flipped');
         card.style.transform = 'translateY(-5px) scale(1.02)';
         
+        // Add click outside to close
         setTimeout(() => {
             document.addEventListener('click', function closeCard(e) {
                 if (!card.contains(e.target)) {
@@ -145,10 +153,12 @@ function submitComment() {
         return;
     }
     
+    // Show loading state
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<div class="loading"></div> Sending...';
     submitBtn.disabled = true;
     
+    // Simulate API call delay
     setTimeout(() => {
         const comment = {
             id: Date.now(),
@@ -178,6 +188,15 @@ function likeComment(commentId, fromTop = false) {
         comment.likes++;
         saveCommentsToStorage();
         updateComments();
+        
+        // Add visual feedback
+        const likeBtn = event.target;
+        likeBtn.style.transform = 'scale(1.2)';
+        likeBtn.style.color = '#8B5CF6';
+        
+        setTimeout(() => {
+            likeBtn.style.transform = 'scale(1)';
+        }, 200);
     }
 }
 
@@ -185,16 +204,16 @@ function updateComments() {
     const recentContainer = document.getElementById("recent-comments");
     const topContainer = document.getElementById("top-comments");
     
-    if (!recentContainer || !topContainer) return;
-    
     recentContainer.innerHTML = "";
     topContainer.innerHTML = "";
     
+    // Recent comments (chronological order)
     comments.slice(0, 5).forEach(comment => {
         const commentElement = createCommentElement(comment);
         recentContainer.appendChild(commentElement);
     });
     
+    // Top comments (sorted by likes)
     const topComments = [...comments]
         .sort((a, b) => b.likes - a.likes)
         .slice(0, 5);
@@ -203,26 +222,102 @@ function updateComments() {
         const commentElement = createCommentElement(comment);
         topContainer.appendChild(commentElement);
     });
+    
+    // Show empty state if no comments
+    if (comments.length === 0) {
+        recentContainer.innerHTML = '<div class="empty-state">No messages yet. Be the first to leave a message!</div>';
+        topContainer.innerHTML = '<div class="empty-state">No messages yet.</div>';
+    }
 }
 
 function createCommentElement(comment) {
     const div = document.createElement("div");
     div.className = "comment";
+    div.style.opacity = "0";
+    div.style.transform = "translateY(20px)";
     
     div.innerHTML = `
         <div class="comment-header">
-            ${comment.user}
+            <i class="fas fa-user-circle"></i> ${escapeHtml(comment.user)}
+            <span style="font-size: 0.8rem; color: var(--gray-400); font-weight: normal; margin-left: 0.5rem;">
+                ${comment.timestamp}
+            </span>
         </div>
-        <p>${comment.msg}</p>
-        <span onclick="likeComment(${comment.id})">❤️ ${comment.likes}</span>
+        <p>${escapeHtml(comment.msg)}</p>
+        <div class="comment-actions">
+            <span class="like-btn" onclick="likeComment(${comment.id})" title="Like this message">
+                <i class="fas fa-heart"></i> ${comment.likes}
+            </span>
+        </div>
     `;
+    
+    // Animate in
+    setTimeout(() => {
+        div.style.opacity = "1";
+        div.style.transform = "translateY(0)";
+    }, 100);
     
     return div;
 }
 
-// Storage
+// Utility functions
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        background: ${type === 'success' ? 'var(--primary-purple)' : '#ef4444'};
+        color: white;
+        border-radius: 10px;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    `;
+    
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check' : 'exclamation-triangle'}"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Local storage functions
 function saveCommentsToStorage() {
-    localStorage.setItem('portfolioComments', JSON.stringify(comments));
+    try {
+        localStorage.setItem('portfolioComments', JSON.stringify(comments));
+    } catch (e) {
+        console.warn('Could not save comments to localStorage:', e);
+    }
 }
 
 function loadCommentsFromStorage() {
@@ -231,7 +326,8 @@ function loadCommentsFromStorage() {
         if (stored) {
             comments = JSON.parse(stored);
         }
-    } catch {
+    } catch (e) {
+        console.warn('Could not load comments from localStorage:', e);
         comments = [];
     }
 }
@@ -244,27 +340,65 @@ function initializeScrollAnimations() {
                 entry.target.classList.add('animated');
             }
         });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
-
-    document.querySelectorAll('.skill-card, .contact-card').forEach(el => {
+    
+    // Observe elements for animation
+    document.querySelectorAll('.skill-card, .contact-card, .comment').forEach(el => {
         observer.observe(el);
     });
 }
 
-// ✅ ONLY CHANGE IS HERE
+// Keyboard navigation
 document.addEventListener('keydown', function(e) {
-    const sections = ['menu', 'portfolio', 'designs', 'voice', 'contact', 'comments'];
-
+    const sections = ['menu', 'portfolio', 'contact', 'comments'];
     const currentIndex = sections.indexOf(currentSection);
     
     if (e.key === 'ArrowLeft' && currentIndex > 0) {
         const prevSection = sections[currentIndex - 1];
         showSection(prevSection);
         updateActiveNavButton(document.querySelector(`[data-section="${prevSection}"]`));
-    } 
-    else if (e.key === 'ArrowRight' && currentIndex < sections.length - 1) {
+    } else if (e.key === 'ArrowRight' && currentIndex < sections.length - 1) {
         const nextSection = sections[currentIndex + 1];
         showSection(nextSection);
         updateActiveNavButton(document.querySelector(`[data-section="${nextSection}"]`));
     }
 });
+
+// Handle form submission on Enter
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.ctrlKey) {
+        if (currentSection === 'comments') {
+            submitComment();
+        }
+    }
+});
+
+// Performance optimization
+window.addEventListener('load', function() {
+    // Remove loading states
+    document.body.classList.add('loaded');
+    
+    // Preload images
+    const images = [
+        'https://i.ibb.co/qFg04mPh/output-1240335491-0.jpg'
+    ];
+    
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+});
+
+// Handle visibility change for performance
+document.addEventListener('visibilitychange', function() {
+    const particles = document.getElementById('particles');
+    if (document.hidden) {
+        particles.style.animationPlayState = 'paused';
+    } else {
+        particles.style.animationPlayState = 'running';
+    }
+});
+               
