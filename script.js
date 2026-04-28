@@ -1,14 +1,15 @@
+// Global variables
 let currentSection = "menu";
 let comments = [];
 let particleCount = 0;
 const maxParticles = 40;
 
+// Initialize
 document.addEventListener('DOMContentLoaded', function() {
     initializeParticles();
     loadCommentsFromStorage();
     updateComments();
     
-    // Navigation Logic
     document.querySelectorAll('.nav-button').forEach(button => {
         button.addEventListener('click', function() {
             const section = this.dataset.section;
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Particle Background Logic
+// Particle system
 function initializeParticles() {
     const container = document.getElementById('particles');
     setInterval(() => {
@@ -38,7 +39,7 @@ function createParticle(container) {
     setTimeout(() => { particle.remove(); particleCount--; }, 15000);
 }
 
-// Section Switching
+// Navigation
 function showSection(sectionId) {
     const current = document.getElementById(currentSection);
     const next = document.getElementById(sectionId);
@@ -47,12 +48,12 @@ function showSection(sectionId) {
     currentSection = sectionId;
 }
 
-// Card Logic
+// Flip Card Logic
 function toggleDetails(card) {
     card.classList.toggle('flipped');
 }
 
-// Comment System
+// Comments Logic
 function submitComment() {
     const userInput = document.getElementById("user");
     const msgInput = document.getElementById("message");
@@ -122,4 +123,3 @@ function loadCommentsFromStorage() {
     const stored = localStorage.getItem('portfolioComments');
     if (stored) comments = JSON.parse(stored);
 }
-    
