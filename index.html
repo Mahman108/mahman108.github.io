@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CRITICAL FIX: Ensures text stays inside the cards and looks aligned */
+        /* Card Overflow and Text Alignment Fix */
         .card-back {
             overflow-y: auto !important;
             padding: 20px !important;
@@ -23,28 +23,35 @@
         .card-back::-webkit-scrollbar { width: 4px; }
         .card-back::-webkit-scrollbar-thumb { background: #8B5CF6; border-radius: 10px; }
 
+        /* Comment System Styling */
         .comment {
             background: rgba(255, 255, 255, 0.05);
             border-left: 3px solid #8B5CF6;
             padding: 15px;
             margin-bottom: 15px;
             border-radius: 4px;
-            transition: all 0.3s ease;
         }
-        .comment-header { font-weight: 600; color: #8B5CF6; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
-        .comment-actions { margin-top: 10px; font-size: 0.9rem; cursor: pointer; }
-        .like-btn { transition: transform 0.2s ease; display: inline-block; }
+        .comment-header { font-weight: 600; color: #8B5CF6; display: flex; justify-content: space-between; }
         
-        .loading { 
-            border: 2px solid #f3f3f3; 
-            border-top: 2px solid #8B5CF6; 
-            border-radius: 50%; 
-            width: 12px; height: 12px; 
-            animation: spin 1s linear infinite; 
-            display: inline-block; 
-            margin-right: 8px; 
+        /* Rubik's Cube Section Styling */
+        .cube-container {
+            width: 100%;
+            height: 500px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            margin-top: 20px;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .design-gallery img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+        .design-gallery img:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -60,18 +67,11 @@
     </div>
 
     <nav class="navigation">
-        <button class="nav-button active" data-section="menu">
-            <i class="fas fa-home"></i> <span>Home</span>
-        </button>
-        <button class="nav-button" data-section="portfolio">
-            <i class="fas fa-briefcase"></i> <span>Portfolio</span>
-        </button>
-        <button class="nav-button" data-section="contact">
-            <i class="fas fa-envelope"></i> <span>Contact</span>
-        </button>
-        <button class="nav-button" data-section="comments">
-            <i class="fas fa-comments"></i> <span>Messages</span>
-        </button>
+        <button class="nav-button active" data-section="menu"><i class="fas fa-home"></i> <span>Home</span></button>
+        <button class="nav-button" data-section="portfolio"><i class="fas fa-briefcase"></i> <span>Portfolio</span></button>
+        <button class="nav-button" data-section="logic"><i class="fas fa-cube"></i> <span>Play</span></button>
+        <button class="nav-button" data-section="contact"><i class="fas fa-envelope"></i> <span>Contact</span></button>
+        <button class="nav-button" data-section="comments"><i class="fas fa-comments"></i> <span>Messages</span></button>
     </nav>
 
     <section id="menu" class="content-section visible">
@@ -84,12 +84,11 @@
                 <div class="profile-info">
                     <h2>Welcome to My Digital Realm</h2>
                     <p class="profile-description">
-                        I am a digital creative bridging the gap between logic and imagination. Specializing in AI prompt engineering, strategic design, and compelling narratives, I build assets that capture attention and drive results.
+                        I am a digital creative bridging the gap between logic and imagination. Specializing in AI prompt engineering, strategic design, and compelling narratives.
                     </p>
                     <div class="stats-grid">
                         <div class="stat-item"><div class="stat-number">5+</div><div class="stat-label">Core Skills</div></div>
-                        <div class="stat-item"><div class="stat-number">∞</div><div class="stat-label">Creativity</div></div>
-                        <div class="stat-item"><div class="stat-number">10/10</div><div class="stat-label">Availability</div></div>
+                        <div class="stat-item"><div class="stat-number">∞</div><div class="stat-label">Logic</div></div>
                     </div>
                 </div>
             </div>
@@ -100,133 +99,76 @@
         <div class="container">
             <h2 class="section-title">Skills Showcase</h2>
             <div class="skills-grid">
-                
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="voice">
+                <div class="skill-card" onclick="toggleDetails(this)">
                     <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon"><i class="fas fa-microphone"></i></div>
-                            <h3>Voice Modulation</h3>
-                            <p class="skill-brief">Professional audio delivery</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Voice Modulation</h3>
-                            <p>Bringing scripts to life with precision. Whether you need a commanding tone for a commercial or character voices for gaming, I deliver audio that hooks the listener.</p>
-                            <audio controls style="width:100%; height: 30px; margin: 10px 0;">
-                                <source src="sample.mp3" type="audio/mpeg">
-                            </audio>
-                            <div class="skill-tags"><span class="tag">Voiceover</span><span class="tag">Character</span></div>
-                        </div>
+                        <div class="card-front"><div class="skill-icon"><i class="fas fa-microphone"></i></div><h3>Voice Modulation</h3></div>
+                        <div class="card-back"><p>Professional audio delivery with precision. Capturing commanding tones or dynamic character voices.</p></div>
                     </div>
                 </div>
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="writing">
+                <div class="skill-card" onclick="toggleDetails(this)">
                     <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon"><i class="fas fa-pen-fancy"></i></div>
-                            <h3>Creative Writing</h3>
-                            <p class="skill-brief">Narratives that convert</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Creative Writing</h3>
-                            <p>Words are tools. I craft compelling narratives, from structured world-building fiction to high-retention blogs. Tell me the goal, and I'll write the journey.</p>
-                            <div class="skill-tags"><span class="tag">Storytelling</span><span class="tag">Blogs</span></div>
-                        </div>
+                        <div class="card-front"><div class="skill-icon"><i class="fas fa-pen-fancy"></i></div><h3>Creative Writing</h3></div>
+                        <div class="card-back"><p>Crafting compelling narratives from world-building fiction to high-retention technical blogs.</p></div>
                     </div>
                 </div>
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="art">
+                <div class="skill-card" onclick="toggleDetails(this)">
                     <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon"><i class="fas fa-palette"></i></div>
-                            <h3>Graphic Designing</h3>
-                            <p class="skill-brief">High-impact visuals</p>
-                        </div>
+                        <div class="card-front"><div class="skill-icon"><i class="fas fa-palette"></i></div><h3>Graphic Designing</h3></div>
                         <div class="card-back">
                             <h3>Graphic Designing</h3>
-                            <p>Visuals built to stop the scroll. These are some of my favorite conceptual designs.</p>
-                            <div class="design-gallery" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0;">
-                                <img src="1000235681.png" style="width:100%; border-radius: 4px; border: 1px solid #333;" alt="Design 1">
-                                <img src="1000213295.png" style="width:100%; border-radius: 4px; border: 1px solid #333;" alt="Design 2">
-                                <img src="1000212824.png" style="width:100%; border-radius: 4px; border: 1px solid #333;" alt="Design 3">
+                            <p>Visual experiments designed to stop the scroll.</p>
+                            <div class="design-gallery" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+                                <img src="https://i.ibb.co/d4DhXrHp/image.png" alt="Design 1">
+                                <img src="https://i.ibb.co/FkYWgxZJ/image.png" alt="Design 2">
+                                <img src="https://i.ibb.co/tMq889BG/image.png" alt="Design 3">
+                                <img src="https://i.ibb.co/PHHFRbL/image.png" alt="Design 4">
                             </div>
-                            <div class="skill-tags"><span class="tag">Digital Art</span><span class="tag">Social</span></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="strategy">
+                <div class="skill-card" onclick="toggleDetails(this)">
                     <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon"><i class="fas fa-bullhorn"></i></div>
-                            <h3>Content Strategy</h3>
-                            <p class="skill-brief">Data-driven marketing</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Content Strategy</h3>
-                            <p>Algorithms favor logic. I build content frameworks, optimized YouTube titles, and high-conversion copy that turns viewers into audiences.</p>
-                            <div class="skill-tags"><span class="tag">SEO</span><span class="tag">Analytics</span></div>
-                        </div>
+                        <div class="card-front"><div class="skill-icon"><i class="fas fa-bullhorn"></i></div><h3>Content Strategy</h3></div>
+                        <div class="card-back"><p>Building data-driven frameworks and SEO-optimized copy for high-conversion results.</p></div>
                     </div>
                 </div>
 
-                <div class="skill-card" onclick="toggleDetails(this)" data-skill="ai">
+                <div class="skill-card" onclick="toggleDetails(this)">
                     <div class="card-inner">
-                        <div class="card-front">
-                            <div class="skill-icon"><i class="fas fa-robot"></i></div>
-                            <h3>Prompt Engineering</h3>
-                            <p class="skill-brief">AI optimization specialist</p>
-                        </div>
-                        <div class="card-back">
-                            <h3>Prompt Engineering</h3>
-                            <p>By structuring complex, parameter-driven prompts, I force AI tools to bypass generic outputs and deliver precise, high-tier results.</p>
-                            <div style="background: rgba(255,255,255,0.05); padding: 8px; border-left: 2px solid #8B5CF6; font-size: 0.85em; margin: 10px 0;">
-                                <strong>Success:</strong> Automated script generator bypassing detection.
-                            </div>
-                            <div class="skill-tags"><span class="tag">AI Logic</span><span class="tag">GPT-4</span></div>
-                        </div>
+                        <div class="card-front"><div class="skill-icon"><i class="fas fa-robot"></i></div><h3>Prompt Engineering</h3></div>
+                        <div class="card-back"><p>Structuring parameter-driven prompts to bypass generic outputs and achieve precise AI results.</p></div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section id="contact" class="content-section">
+    <section id="logic" class="content-section">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-card">
-                <div class="contact-methods">
-                    <a href="mailto:mahmanuhas@gmail.com" class="contact-method">
-                        <i class="fas fa-envelope"></i> <span>mahmanuhas@gmail.com</span>
-                    </a>
-                    <a href="https://github.com/mahman108" target="_blank" class="contact-method">
-                        <i class="fab fa-github"></i> <span>github.com/mahman108</span>
-                    </a>
-                    <div class="contact-method">
-                        <i class="fab fa-discord"></i> <span>hrudaya12.</span>
-                    </div>
-                </div>
+            <h2 class="section-title">The Logic Lab</h2>
+            <p style="text-align: center; opacity: 0.8;">Take a break and solve the puzzle. Use your mouse or touch to rotate the cube.</p>
+            <div class="cube-container">
+                <iframe src="https://ruwix.com/online-rubiks-cube-solver-program/?embed=1" style="width: 100%; height: 100%; border: none;"></iframe>
             </div>
         </div>
     </section>
 
     <section id="comments" class="content-section">
         <div class="container">
-            <h2 class="section-title">Messages & Feedback</h2>
+            <h2 class="section-title">Messages</h2>
             <div class="comment-form">
                 <input type="text" id="user" placeholder="Your Name" class="form-input">
-                <textarea id="message" placeholder="Share your thoughts..." class="form-textarea"></textarea>
-                <button onclick="submitComment()" class="submit-btn">Send Message</button>
+                <textarea id="message" placeholder="Message..." class="form-textarea"></textarea>
+                <button onclick="submitComment()" class="submit-btn">Send</button>
             </div>
-            <div class="comments-display">
-                <div id="recent-comments" class="comments-list"></div>
-                <hr style="opacity: 0.1; margin: 20px 0;">
-                <h3><i class="fas fa-fire"></i> Top Messages</h3>
-                <div id="top-comments" class="comments-list"></div>
-            </div>
+            <div id="recent-comments" class="comments-list"></div>
         </div>
     </section>
 
     <script src="script.js"></script>
 </body>
-</html>
+                    </html>
+                    
