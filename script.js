@@ -1,104 +1,107 @@
 let currentSection = "menu";
 let comments = [];
-let particleCount = 0;
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Particles
-    const pContainer = document.getElementById('particles');
-    if (pContainer) {
-        setInterval(() => {
-            if (particleCount < 40) createParticle(pContainer);
-        }, 500);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Navigation Logic
+    document.querySelectorAll('.nav-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.section;
+            
+            // Swap Sections
+            const currEl = document.getElementById(currentSection);
+            const nextEl = document.getElementById(target);
 
-    // Navigation
-    document.querySelectorAll('.nav-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const target = this.dataset.section;
-            showSection(target);
-            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
+            if (currEl && nextEl) {
+                currEl.classList.remove('visible');
+                nextEl.classList.add('visible');
+                
+                // Update Nav UI
+                document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentSection = target;
+                window.scrollTo(0, 0); // Reset scroll when switching
+            }
         });
     });
 
-    loadComments();
-    updateComments();
+    // 2. Particle Effect (Minimal & Stable)
+    const pContainer = document.getElementById('particles');
+    if (pContainer) {
+        for (let i = 0; i < 30; i++) {
+            createParticle(pContainer);
+        }
+    }
+
+    // 3. Load Comments
+    const saved = localStorage.getItem('portfolio_msgs');
+    if (saved) {
+        comments = JSON.parse(saved);
+        renderComments();
+    }
 });
 
 function createParticle(container) {
     const p = document.createElement('div');
-    p.className = 'particle';
+    p.style.position = 'absolute';
+    p.style.width = '2px';
+    p.style.height = '2px';
+    p.style.background = '#8B5CF6';
+    p.style.opacity = Math.random();
+    p.style.top = Math.random() * 100 + '%';
     p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (Math.random() * 10 + 8) + 's';
     container.appendChild(p);
-    particleCount++;
-    setTimeout(() => { p.remove(); particleCount--; }, 15000);
 }
 
-function showSection(id) {
-    const current = document.getElementById(currentSection);
-    const next = document.getElementById(id);
-    if (current) current.classList.remove("visible");
-    if (next) {
-        next.classList.add("visible");
-        currentSection = id;
-    }
+// Card Flip Function
+function toggleCard(card) {
+    card.classList.toggle('flipped');
 }
 
-// Accordion Logic: Closes others when one opens
-function toggleDetails(card) {
-    const alreadyOpen = card.classList.contains('flipped');
-    document.querySelectorAll('.skill-card').forEach(c => c.classList.remove('flipped'));
-    if (!alreadyOpen) card.classList.add('flipped');
-}
+// Comment Board Functions
+function sendComment() {
+    const u = document.getElementById('user');
+    const m = document.getElementById('message');
+    
+    if(!u.value.trim() || !m.value.trim()) return;
 
-// Comments Logic
-function submitComment() {
-    const u = document.getElementById("user");
-    const m = document.getElementById("message");
-    if (!u.value.trim() || !m.value.trim()) return;
-
-    const newC = {
-        id: Date.now(),
-        user: u.value,
-        msg: m.value,
-        likes: 0,
+    const newMsg = {
+        name: u.value.trim(),
+        text: m.value.trim(),
         date: new Date().toLocaleDateString()
     };
 
-    comments.unshift(newC);
-    localStorage.setItem('portfolioComments', JSON.stringify(comments));
-    u.value = ""; m.value = "";
-    updateComments();
-}
-
-function likeComment(id) {
-    const c = comments.find(x => x.id === id);
-    if (c) {
-        c.likes++;
-        localStorage.setItem('portfolioComments', JSON.stringify(comments));
-        updateComments();
-    }
-}
-
-function updateComments() {
-    const container = document.getElementById("recent-comments");
-    if (!container) return;
+    comments.unshift(newMsg);
+    localStorage.setItem('portfolio_msgs', JSON.stringify(comments));
     
-    container.innerHTML = comments.map(c => `
-        <div class="comment" style="background:rgba(255,255,255,0.05); padding:15px; margin-top:10px; border-radius:8px; border-left:4px solid #8B5CF6;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; color:#8B5CF6;">
-                <span>${c.user}</span> <small style="color:#aaa;">${c.date}</small>
+    u.value = '';
+    m.value = '';
+    renderComments();
+}
+
+function renderComments() {
+    const list = document.getElementById('comment-list');
+    if(!list) return;
+
+    if (comments.length === 0) {
+        list.innerHTML = '<p style="opacity:0.5; text-align:center;">No messages yet.</p>';
+        return;
+    }
+
+    list.innerHTML = comments.map(c => `
+        <div style="background:rgba(255,255,255,0.03); padding:15px; margin-bottom:15px; border-radius:10px; border-left:4px solid #8B5CF6; animation: fadeIn 0.5s ease;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <strong style="color:#8B5CF6;">${escapeHtml(c.name)}</strong>
+                <small style="opacity:0.5;">${c.date}</small>
             </div>
-            <p style="margin:10px 0;">${c.msg}</p>
-            <div onclick="likeComment(${c.id})" style="cursor:pointer; display:inline-block;">
-                <i class="fas fa-heart" style="color:${c.likes > 0 ? '#8B5CF6' : '#555'}"></i> ${c.likes}
-            </div>
+            <p style="line-height:1.5;">${escapeHtml(c.text)}</p>
         </div>
     `).join('');
 }
 
-function loadComments() {
-    const saved = localStorage.getItem('portfolioComments');
-    if (saved) comments = JSON.parse(saved);
+// Prevent HTML injection in comments
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
