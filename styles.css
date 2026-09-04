@@ -1,3 +1,18 @@
+/* Font Imports & Webfont Declarations */
+@font-face {
+    font-family: 'Aquire';
+    src: url('https://fonts.cdnfonts.com/s/72224/Aquire-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aquire';
+    src: url('https://fonts.cdnfonts.com/s/72224/Aquire-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* CSS Custom Properties for Dark Theme */
 :root {
     --primary-purple: #8B5CF6;
@@ -33,12 +48,17 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Aquire', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--gray-900);
     color: var(--white);
     overflow-x: hidden;
     line-height: 1.6;
     min-height: 100vh;
+}
+
+/* Readability fallback for descriptive body text */
+p, span, input, textarea, button {
+    font-family: 'Inter', -apple-system, sans-serif;
 }
 
 /* Animated Particles Background */
@@ -117,9 +137,10 @@ body {
 }
 
 .main-title {
+    font-family: 'Aquire', sans-serif;
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
     background: linear-gradient(135deg, var(--white), var(--gray-300));
     background-clip: text;
     -webkit-background-clip: text;
@@ -128,13 +149,25 @@ body {
     animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
+/* Official Name scaled down using the Golden Ratio (1.618) */
+.official-name {
+    font-family: 'Aquire', sans-serif;
+    font-size: calc(clamp(3rem, 8vw, 6rem) / 1.618);
+    font-weight: 400;
+    color: var(--secondary-purple);
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+    margin-bottom: 1.2rem;
+    animation: slideInUp 1s ease-out 0.3s both;
+}
+
 @keyframes titleGlow {
     0% { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.5)); }
     100% { filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.8)); }
 }
 
 .subtitle {
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
     font-weight: 300;
     color: var(--gray-300);
     margin-bottom: 2rem;
@@ -182,6 +215,11 @@ body {
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
+}
+
+.nav-button span {
+    font-family: 'Aquire', sans-serif;
+    font-size: 0.9rem;
 }
 
 .nav-button::before {
@@ -245,6 +283,7 @@ body {
 }
 
 .section-title {
+    font-family: 'Aquire', sans-serif;
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 700;
     text-align: center;
@@ -325,7 +364,8 @@ body {
 }
 
 .profile-info h2 {
-    font-size: 2.5rem;
+    font-family: 'Aquire', sans-serif;
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--white);
@@ -441,7 +481,8 @@ body {
 
 .card-front h3,
 .card-back h3 {
-    font-size: 1.5rem;
+    font-family: 'Aquire', sans-serif;
+    font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--white);
@@ -472,6 +513,80 @@ body {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
+}
+
+/* Samples Section & Watermark Styling */
+.samples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.sample-category {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    transition: var(--transition-smooth);
+}
+
+.sample-category:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-secondary);
+}
+
+.sample-category h3 {
+    font-family: 'Aquire', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.sample-box {
+    position: relative;
+    height: 180px;
+    background: var(--gray-800);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--gray-600);
+    color: var(--gray-400);
+}
+
+.sample-box i {
+    font-size: 2.5rem;
+    color: var(--primary-purple);
+}
+
+.sample-box span {
+    font-size: 0.9rem;
+    color: var(--gray-300);
+    z-index: 2;
+}
+
+/* Diagonal Watermark Overlay */
+.watermark::after {
+    content: 'SAMPLE';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-family: 'Aquire', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: rgba(255, 255, 255, 0.08);
+    font-weight: 700;
+    pointer-events: none;
+    letter-spacing: 8px;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
 }
 
 /* Contact Section */
@@ -514,7 +629,8 @@ body {
 }
 
 .contact-header h3 {
-    font-size: 2rem;
+    font-family: 'Aquire', sans-serif;
+    font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--white);
@@ -602,6 +718,7 @@ body {
 }
 
 .comment-form h3 {
+    font-family: 'Aquire', sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
@@ -666,7 +783,8 @@ body {
 }
 
 .comments-section h3 {
-    font-size: 1.3rem;
+    font-family: 'Aquire', sans-serif;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 1rem;
     color: var(--white);
@@ -736,7 +854,7 @@ body {
         gap: 2rem;
     }
     
-    .skills-grid {
+    .skills-grid, .samples-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
     
@@ -770,7 +888,7 @@ body {
         padding: 2rem;
     }
     
-    .skills-grid {
+    .skills-grid, .samples-grid {
         grid-template-columns: 1fr;
     }
     
