@@ -346,14 +346,14 @@ function initializeScrollAnimations() {
     });
     
     // Observe elements for animation
-    document.querySelectorAll('.skill-card, .contact-card, .comment').forEach(el => {
+    document.querySelectorAll('.skill-card, .sample-category, .contact-card, .comment').forEach(el => {
         observer.observe(el);
     });
 }
 
 // Keyboard navigation
 document.addEventListener('keydown', function(e) {
-    const sections = ['menu', 'portfolio', 'contact', 'comments'];
+    const sections = ['menu', 'portfolio', 'samples', 'contact', 'comments'];
     const currentIndex = sections.indexOf(currentSection);
     
     if (e.key === 'ArrowLeft' && currentIndex > 0) {
